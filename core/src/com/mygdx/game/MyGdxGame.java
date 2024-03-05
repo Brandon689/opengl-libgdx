@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 
 public class MyGdxGame extends ApplicationAdapter {
+
 	OrthographicCamera camera;
 	ShapeRenderer shapeRenderer;
 
@@ -17,6 +18,8 @@ public class MyGdxGame extends ApplicationAdapter {
 	float rectWidth;
 	float rectHeight;
 	float moveSpeed = 100;
+	float rotateSpeed = 20;
+	float zoomSpeed = 1;
 
 	@Override
 	public void create() {
@@ -32,16 +35,34 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override
 	public void render() {
 
+		// move camera left and right
 		if (Gdx.input.isKeyPressed(Input.Keys.W)) {
 			camera.translate(0, moveSpeed * Gdx.graphics.getDeltaTime());
 		} else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
 			camera.translate(0, -moveSpeed * Gdx.graphics.getDeltaTime());
 		}
 
+		// move camera up and down
 		if (Gdx.input.isKeyPressed(Input.Keys.A)) {
 			camera.translate(-moveSpeed * Gdx.graphics.getDeltaTime(), 0);
 		} else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
 			camera.translate(moveSpeed * Gdx.graphics.getDeltaTime(), 0);
+		}
+
+		// zoom camera
+		if(Gdx.input.isKeyPressed((Input.Keys.UP))){
+			camera.zoom -= zoomSpeed * Gdx.graphics.getDeltaTime();
+		}
+		else if(Gdx.input.isKeyPressed((Input.Keys.DOWN))){
+			camera.zoom += zoomSpeed * Gdx.graphics.getDeltaTime();
+		}
+
+		// rotate camera
+		if(Gdx.input.isKeyPressed((Input.Keys.LEFT))){
+			camera.rotate(-rotateSpeed * Gdx.graphics.getDeltaTime());
+		}
+		else if(Gdx.input.isKeyPressed((Input.Keys.RIGHT))){
+			camera.rotate(rotateSpeed * Gdx.graphics.getDeltaTime());
 		}
 
 		Gdx.gl.glClearColor(.25f, .25f, .25f, 1);
